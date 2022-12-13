@@ -112,8 +112,8 @@ void ALostChildPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Dash", IE_Pressed, this, &ALostChildPlayer::Dash);
 
-	PlayerInputComponent->BindAxis("MoveForward", this, &ALostChildPlayer::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &ALostChildPlayer::MoveRight);
+	PlayerInputComponent->BindAxis("Stage1_MoveForward", this, &ALostChildPlayer::MoveForward);
+	PlayerInputComponent->BindAxis("Stage1_MoveRight", this, &ALostChildPlayer::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
@@ -385,6 +385,12 @@ void ALostChildPlayer::PressMagTest()
 
 void ALostChildPlayer::OnRep_EquipWeapon()
 {
+	IWeaponInterface* InterfaceObj = Cast<IWeaponInterface>(EquipWeapon);
+
+	if (InterfaceObj)
+	{
+		InterfaceObj->Execute_AttachWeapon(EquipWeapon, this);
+	}
 }
 
 AActor* ALostChildPlayer::GetNearestWeapon()
