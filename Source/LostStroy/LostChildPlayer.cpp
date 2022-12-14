@@ -124,17 +124,17 @@ void ALostChildPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALostChildPlayer::LookUpAtRate);
 
 	// Shoot
-	PlayerInputComponent->BindAction("Trigger", IE_Pressed, this, &ALostChildPlayer::PressTrigger);
-	PlayerInputComponent->BindAction("Trigger", IE_Released, this, &ALostChildPlayer::ReleaseTrigger);
+	PlayerInputComponent->BindAction("Stage1_Trigger", IE_Pressed, this, &ALostChildPlayer::PressTrigger);
+	PlayerInputComponent->BindAction("Stage1_Trigger", IE_Released, this, &ALostChildPlayer::ReleaseTrigger);
 
 	// Reload
-	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &ALostChildPlayer::PressReload);
+	PlayerInputComponent->BindAction("Stage1_Reload", IE_Pressed, this, &ALostChildPlayer::PressReload);
 
 	// PickUp
 	PlayerInputComponent->BindAction("PickUp", IE_Pressed, this, &ALostChildPlayer::PressPickUp);
 
 	// DropWeapon
-	PlayerInputComponent->BindAction("DropWeapon", IE_Pressed, this, &ALostChildPlayer::PressDropWeapon);
+	PlayerInputComponent->BindAction("Drop", IE_Pressed, this, &ALostChildPlayer::PressDropWeapon);
 
 	// MagTest
 	PlayerInputComponent->BindAction("MagTest", IE_Pressed, this, &ALostChildPlayer::PressMagTest);
