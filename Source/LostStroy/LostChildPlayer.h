@@ -147,8 +147,10 @@ public:
 
 	void OnUpdateHp_Implementation(float CurrentHp, float MaxHp);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void DoRagdoll();
+
+	void DoRagdoll_Implementation();
 
 	UFUNCTION(BlueprintCallable)
 	void DoGetup();

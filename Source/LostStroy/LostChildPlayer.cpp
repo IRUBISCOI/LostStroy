@@ -16,6 +16,7 @@
 #include "NameTagInterface.h"
 #include "Weapon.h"
 #include "LostChildState.h"
+#include "ZombieComponent.h"
 
 // Sets default values
 ALostChildPlayer::ALostChildPlayer()
@@ -91,6 +92,12 @@ float ALostChildPlayer::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	if (ps)
 	{
 		ps->AddDamage(DamageAmount);
+	}
+
+	UZombieComponent* ac = Cast<UZombieComponent>(GetComponentByClass(UZombieComponent::StaticClass()));
+	if (ac)
+	{
+		ac->AddDamage(DamageAmount);
 	}
 
 	return 0.0f;
@@ -184,7 +191,7 @@ void ALostChildPlayer::OnUpdateHp_Implementation(float CurrentHp, float MaxHp)
 	}
 }
 
-void ALostChildPlayer::DoRagdoll()
+void ALostChildPlayer::DoRagdoll_Implementation()
 {
 	IsRagdoll = true;
 
@@ -346,10 +353,21 @@ void ALostChildPlayer::ReleaseTrigger()
 void ALostChildPlayer::BindPlayerState()
 {
 	ALostChildState* ps = Cast<ALostChildState>(GetPlayerState());
-	if (IsValid(ps))
+	UZombieComponent* ac = Cast<UZombieComponent>(GetComponentByClass(UZombieComponent::StaticClass()));
+
+	if (IsValid(ps) | IsValid(ac))
 	{
-		ps->Fuc_Dele_UpdateHp_TwoParams.AddUFunction(this, FName("OnUpdateHp"));
-		OnUpdateHp(ps->GetCurHp(), ps->GetMaxHp());
+		if(IsValid(ps))
+		{
+			ps->Fuc_Dele_UpdateHp_TwoParams.AddUFunction(this, FName("OnUpdateHp"));
+			OnUpdateHp(ps->GetCurHp(), ps->GetMaxHp());
+		}
+
+		if(IsValid(ac))
+		{
+			ac->Fuc_Dele_UpdateHp_TwoParams.AddUFunction(this, FName("OnUpdateHp"));
+			OnUpdateHp(ac->GetCurHp(), ac->GetMaxHp());
+		}
 		return;
 	}
 
