@@ -86,7 +86,7 @@ void ALostChildPlayer::Tick(float DeltaTime)
 
 float ALostChildPlayer::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("TakeDamage Damage=%f EventInstigator=%s"), DamageAmount, *EventInstigator->GetName()));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("TakeDamage Damage=%f EventInstigator=%s"), DamageAmount, *EventInstigator->GetName()));
 
 	ALostChildState* ps = Cast<ALostChildState>(GetPlayerState());
 	if (ps)
@@ -97,7 +97,9 @@ float ALostChildPlayer::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	UZombieComponent* ac = Cast<UZombieComponent>(GetComponentByClass(UZombieComponent::StaticClass()));
 	if (ac)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Damage Complete")));
 		ac->AddDamage(DamageAmount);
+
 	}
 
 	return 0.0f;
@@ -183,7 +185,7 @@ void ALostChildPlayer::OnNotifyReload()
 
 void ALostChildPlayer::OnUpdateHp_Implementation(float CurrentHp, float MaxHp)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,	FString::Printf(TEXT("OnUpdateHp CurrentHp : %f"), CurrentHp));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,	FString::Printf(TEXT("OnUpdateHp CurrentHp : %f"), CurrentHp));
 
 	if (CurrentHp <= 0)
 	{

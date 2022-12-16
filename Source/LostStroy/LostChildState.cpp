@@ -23,7 +23,7 @@ ALostChildState::ALostChildState()
 
 void ALostChildState::OnRep_CurHp()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("OnRep_CurHp = %f"), CurHp));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("OnRep_CurHp = %f"), CurHp));
 
 	if (Fuc_Dele_UpdateHp_TwoParams.IsBound())
 		Fuc_Dele_UpdateHp_TwoParams.Broadcast(CurHp, MaxHp);

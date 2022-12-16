@@ -28,10 +28,10 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 protected:
-	UPROPERTY(ReplicatedUsing = OnRep_CurHp)
+	UPROPERTY(ReplicatedUsing = OnRep_CurHp, VisibleAnywhere)
 	float CurHp;
 
-	UPROPERTY(ReplicatedUsing = OnRep_MaxHp)
+	UPROPERTY(ReplicatedUsing = OnRep_MaxHp, VisibleAnywhere)
 	float MaxHp;
 		
 public:
