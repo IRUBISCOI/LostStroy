@@ -8,6 +8,8 @@ public class LostStroy : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UMG", "ItemPlugin" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UMG", "ItemPlugin", "Niagara" });
+
+		//PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Niagara"));
 	}
 }

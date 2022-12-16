@@ -68,9 +68,9 @@ void AWeapon::NotifyShoot_Implementation()
 
 	if (isUse == false)
 		return;
-
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), WeaponData->FireEffect, Mesh->GetSocketLocation("Muzzle"), Mesh->GetSocketRotation("Muzzle"), FVector(0.3f, 0.3f, 0.3f));
-
+	
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), WeaponData->NiagaraFire, Mesh->GetSocketLocation("Muzzle"), (Mesh->GetSocketRotation("Muzzle") + FRotator(0, -90, 0)), FVector(0.2f, 0.2f, 0.2f));
+	
 	Audio->Play();
 
 	APlayerController* shooter = GetWorld()->GetFirstPlayerController();
@@ -123,8 +123,7 @@ void AWeapon::AttachWeapon_Implementation(ACharacter* targetChar)
 
 	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	AttachToComponent(targetChar->GetMesh()
-		, FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName("weapon"));
+	AttachToComponent(targetChar->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName("weapon"));
 
 	UpdateAmmoToHud(Ammo);
 }

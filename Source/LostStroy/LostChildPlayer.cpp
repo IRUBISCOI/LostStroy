@@ -16,6 +16,7 @@
 #include "NameTagInterface.h"
 #include "Weapon.h"
 #include "LostChildState.h"
+#include "ZombieComponent.h"
 
 // Sets default values
 ALostChildPlayer::ALostChildPlayer()
@@ -93,6 +94,12 @@ float ALostChildPlayer::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 		ps->AddDamage(DamageAmount);
 	}
 
+	UZombieComponent* ac = Cast<UZombieComponent>(GetComponentByClass(UZombieComponent::StaticClass()));
+	if (ac)
+	{
+		ac->AddDamage(DamageAmount);
+	}
+
 	return 0.0f;
 }
 
@@ -124,17 +131,17 @@ void ALostChildPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALostChildPlayer::LookUpAtRate);
 
 	// Shoot
-	PlayerInputComponent->BindAction("Trigger", IE_Pressed, this, &ALostChildPlayer::PressTrigger);
-	PlayerInputComponent->BindAction("Trigger", IE_Released, this, &ALostChildPlayer::ReleaseTrigger);
+	PlayerInputComponent->BindAction("Stage1_Trigger", IE_Pressed, this, &ALostChildPlayer::PressTrigger);
+	PlayerInputComponent->BindAction("Stage1_Trigger", IE_Released, this, &ALostChildPlayer::ReleaseTrigger);
 
 	// Reload
-	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &ALostChildPlayer::PressReload);
+	PlayerInputComponent->BindAction("Stage1_Reload", IE_Pressed, this, &ALostChildPlayer::PressReload);
 
 	// PickUp
 	PlayerInputComponent->BindAction("PickUp", IE_Pressed, this, &ALostChildPlayer::PressPickUp);
 
 	// DropWeapon
-	PlayerInputComponent->BindAction("DropWeapon", IE_Pressed, this, &ALostChildPlayer::PressDropWeapon);
+	PlayerInputComponent->BindAction("Drop", IE_Pressed, this, &ALostChildPlayer::PressDropWeapon);
 
 	// MagTest
 	PlayerInputComponent->BindAction("MagTest", IE_Pressed, this, &ALostChildPlayer::PressMagTest);
@@ -184,7 +191,7 @@ void ALostChildPlayer::OnUpdateHp_Implementation(float CurrentHp, float MaxHp)
 	}
 }
 
-void ALostChildPlayer::DoRagdoll()
+void ALostChildPlayer::DoRagdoll_Implementation()
 {
 	IsRagdoll = true;
 
@@ -346,10 +353,21 @@ void ALostChildPlayer::ReleaseTrigger()
 void ALostChildPlayer::BindPlayerState()
 {
 	ALostChildState* ps = Cast<ALostChildState>(GetPlayerState());
-	if (IsValid(ps))
+	UZombieComponent* ac = Cast<UZombieComponent>(GetComponentByClass(UZombieComponent::StaticClass()));
+
+	if (IsValid(ps) | IsValid(ac))
 	{
-		ps->Fuc_Dele_UpdateHp_TwoParams.AddUFunction(this, FName("OnUpdateHp"));
-		OnUpdateHp(ps->GetCurHp(), ps->GetMaxHp());
+		if(IsValid(ps))
+		{
+			ps->Fuc_Dele_UpdateHp_TwoParams.AddUFunction(this, FName("OnUpdateHp"));
+			OnUpdateHp(ps->GetCurHp(), ps->GetMaxHp());
+		}
+
+		if(IsValid(ac))
+		{
+			ac->Fuc_Dele_UpdateHp_TwoParams.AddUFunction(this, FName("OnUpdateHp"));
+			OnUpdateHp(ac->GetCurHp(), ac->GetMaxHp());
+		}
 		return;
 	}
 

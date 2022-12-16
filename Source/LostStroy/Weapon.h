@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "WeaponInterface.h"
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
@@ -19,7 +21,7 @@ public:
 		, ShootMontage(nullptr)
 		, ReloadMontage(nullptr)
 		, SoundBase(nullptr)
-		, FireEffect(nullptr)
+		, NiagaraFire(nullptr)
 		, MaxAmmo(30)
 		, Damage(10)
 		, WeaponClass(nullptr)
@@ -38,7 +40,7 @@ public:
 	USoundBase* SoundBase;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UParticleSystem* FireEffect;
+	UNiagaraSystem* NiagaraFire;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MaxAmmo;

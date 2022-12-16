@@ -45,8 +45,9 @@ void AGameHUD::BindPlayerState()
 
 			ps->Fuc_Dele_UpdateMag_OneParam.AddUFunction(this, FName("OnUpdateMyMag"));
 			OnUpdateMyMag(ps->GetMag());
-			return;
 		}
+
+		return;
 	}
 
 	FTimerManager& timerManager = GetWorld()->GetTimerManager();
