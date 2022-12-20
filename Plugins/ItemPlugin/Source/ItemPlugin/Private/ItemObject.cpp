@@ -42,7 +42,8 @@ void AItemObject::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 
 	if (InterfaceObj)
 	{
-		InterfaceObj->Execute_AddHeal(OtherActor, 10.0f);
+		InterfaceObj->Execute_AddHeal(OtherActor, PlusHealth);
+		Destroy();
 	}
 }
 

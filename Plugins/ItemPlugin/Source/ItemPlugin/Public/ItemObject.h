@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/Actor.h"
 #include "ItemObject.generated.h"
 
@@ -30,4 +31,7 @@ public:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* StaticMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float PlusHealth;
 };
