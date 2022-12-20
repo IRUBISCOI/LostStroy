@@ -43,6 +43,12 @@ public:
 
 	UAnimMontage* AnimMontage;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAnimMontage* ShootMontage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAnimMontage* ReloadMontage;
+
 	UFUNCTION(Server, Reliable)
 	void ReqPressTrigger(bool isPressed);
 

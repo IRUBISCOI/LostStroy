@@ -17,6 +17,7 @@ class LOSTSTROY_API AWeaponBurst : public AWeapon
 public:
 	virtual void PressTrigger_Implementation(bool isPressed) override;
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void BurstShooting();
 
 	FTimerHandle th_BurstShooting;	
