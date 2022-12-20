@@ -24,7 +24,7 @@ void AWeaponBurst::PressTrigger_Implementation(bool isPressed)
 	}
 }
 
-void AWeaponBurst::BurstShooting()
+void AWeaponBurst::BurstShooting_Implementation()
 {
 	if (OwnChar == nullptr)
 	{

@@ -68,7 +68,7 @@ void AWeapon::NotifyShoot_Implementation()
 
 	if (isUse == false)
 		return;
-	
+
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), WeaponData->NiagaraFire, Mesh->GetSocketLocation("Muzzle"), (Mesh->GetSocketRotation("Muzzle") + FRotator(0, -90, 0)), FVector(0.2f, 0.2f, 0.2f));
 	
 	Audio->Play();
@@ -80,7 +80,6 @@ void AWeapon::NotifyShoot_Implementation()
 
 		FVector start = (forward * 350) + shooter->PlayerCameraManager->GetCameraLocation();
 		FVector end = (forward * 5000) + shooter->PlayerCameraManager->GetCameraLocation();
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Client - ReqShoot")));
 		ReqShoot(start, end);
 	}
 }
