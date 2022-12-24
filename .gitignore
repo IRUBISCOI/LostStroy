@@ -22,6 +22,8 @@
 /Content/ParagonSparrow
 /Content/ParagonTerra
 
+/Packaging
+
 ### C++ ###
 # Prerequisites
 *.d
